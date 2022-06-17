@@ -7,6 +7,7 @@
     <title>Rock Paper Scissors</title>
   </head>
   <body>
+      <h1>Rock Paper Scissors Time!</h1>
       <script>
           function computerPlay() {
               let computerChoice = 'Rock';
@@ -19,6 +20,53 @@
               }
 
               return computerChoice;
+          }
+
+          function playRound(playerSelection, computerSelection) {
+            let outcome = `Nobody wins! Play the game right next time`;
+            playerSelection = playerSelection.charAt(0).toUpperCase() + playerSelection.slice(1).toLowerCase();
+            computerSelection = computerSelection.charAt(0).toUpperCase() + computerSelection.slice(1).toLowerCase();
+
+            if (playerSelection == 'Rock') {
+                //Ordered in tie, lose, win
+                switch (computerSelection) {
+                    case 'Rock':
+                        outcome = `You tie! ${playerSelection} ties ${computerSelection}`;
+                        break;
+                    case 'Paper':
+                        outcome = `You lose! ${computerSelection} beats ${playerSelection}`;
+                        break;
+                    case 'Scissors':
+                        outcome = `You win! ${playerSelection} beats ${computerSelection}`;
+                        break;
+                }
+            } else if (playerSelection == 'Paper') {
+                switch (computerSelection) {
+                    case 'Paper': 
+                        outcome = `You tie! ${playerSelection} ties ${computerSelection}`;
+                        break;
+                    case 'Scissors':
+                        outcome = `You lose! ${computerSelection} beats ${playerSelection}`;
+                        break;
+                    case 'Rock':
+                        outcome = `You win! ${playerSelection} beats ${computerSelection}`;
+                        break;
+                }
+            } else if (playerSelection = 'Scissors') {
+                switch (computerSelection) {
+                    case 'Scissors': 
+                        outcome = `You tie! ${playerSelection} ties ${computerSelection}`;
+                        break;
+                    case 'Rock':
+                        outcome = `You lose! ${computerSelection} beats ${playerSelection}`;
+                        break;
+                    case 'Paper':
+                        outcome = `You win! ${playerSelection} beats ${computerSelection}`;
+                        break;
+                }
+            }
+
+            return outcome;
           }
       </script>
     
