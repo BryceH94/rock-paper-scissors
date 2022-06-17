@@ -9,16 +9,16 @@
   <body>
       <script>
           function computerPlay() {
-              let computerChoice = 'Scissors';
+              let computerChoice = 'Rock';
               let computerChoiceNum = Math.random();
-              
+
               if (computerChoiceNum <= 0.33) {
-                  computerChoice = 'Rock';
-              } else if (computerChoiceNum <= 0.66) {
                   computerChoice = 'Paper';
+              } else if (computerChoiceNum <= 0.66) {
+                  computerChoice = 'Scissors';
               }
 
-              return computerChoice
+              return computerChoice;
           }
       </script>
     
