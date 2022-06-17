@@ -8,6 +8,8 @@
   </head>
   <body>
       <h1>Rock Paper Scissors Time!</h1>
+      <h2>First to five. Fight in the console!</h2>
+      <h3>Type "game()" to get started.</h3>
       <script>
           function computerPlay() {
               let computerChoice = 'Rock';
@@ -24,7 +26,7 @@
 
           function playRound(playerSelection, computerSelection) {
             let outcome = `Nobody wins! Play the game right next time`;
-            let winner = 'Nobody';
+            let winner = 'Error';
             playerSelection = playerSelection.charAt(0).toUpperCase() + playerSelection.slice(1).toLowerCase();
             computerSelection = computerSelection.charAt(0).toUpperCase() + computerSelection.slice(1).toLowerCase();
 
@@ -59,7 +61,7 @@
                         outcome = `You win! ${playerSelection} beats ${computerSelection}`;
                         break;
                 }
-            } else if (playerSelection = 'Scissors') {
+            } else if (playerSelection == 'Scissors') {
                 switch (computerSelection) {
                     case 'Scissors': 
                         winner = 'Nobody';
@@ -93,6 +95,8 @@
                     playerScore++;
                 } else if (winner == 'Computer') {
                     computerScore++;
+                } else {
+                    i--; //First to five, ties don't count
                 }
                 
                 if (playerScore == 3) {
