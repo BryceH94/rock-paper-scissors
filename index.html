@@ -24,6 +24,7 @@
 
           function playRound(playerSelection, computerSelection) {
             let outcome = `Nobody wins! Play the game right next time`;
+            let winner = 'Nobody';
             playerSelection = playerSelection.charAt(0).toUpperCase() + playerSelection.slice(1).toLowerCase();
             computerSelection = computerSelection.charAt(0).toUpperCase() + computerSelection.slice(1).toLowerCase();
 
@@ -31,42 +32,80 @@
                 //Ordered in tie, lose, win
                 switch (computerSelection) {
                     case 'Rock':
+                        winner = 'Nobody';
                         outcome = `You tie! ${playerSelection} ties ${computerSelection}`;
                         break;
                     case 'Paper':
+                        winner = 'Computer';
                         outcome = `You lose! ${computerSelection} beats ${playerSelection}`;
                         break;
                     case 'Scissors':
+                        winner = 'Player';
                         outcome = `You win! ${playerSelection} beats ${computerSelection}`;
                         break;
                 }
             } else if (playerSelection == 'Paper') {
                 switch (computerSelection) {
                     case 'Paper': 
+                        winner = 'Nobody';
                         outcome = `You tie! ${playerSelection} ties ${computerSelection}`;
                         break;
                     case 'Scissors':
+                        winner = 'Computer';
                         outcome = `You lose! ${computerSelection} beats ${playerSelection}`;
                         break;
                     case 'Rock':
+                        winner = 'Player';
                         outcome = `You win! ${playerSelection} beats ${computerSelection}`;
                         break;
                 }
             } else if (playerSelection = 'Scissors') {
                 switch (computerSelection) {
                     case 'Scissors': 
+                        winner = 'Nobody';
                         outcome = `You tie! ${playerSelection} ties ${computerSelection}`;
                         break;
                     case 'Rock':
+                        winner = 'Computer';
                         outcome = `You lose! ${computerSelection} beats ${playerSelection}`;
                         break;
                     case 'Paper':
+                        winner = 'Player';
                         outcome = `You win! ${playerSelection} beats ${computerSelection}`;
                         break;
                 }
             }
 
-            return outcome;
+            console.log(outcome);
+            return winner;
+          }
+
+          function game() {
+            let playerScore = 0;
+            let computerScore = 0;
+
+            for (let i = 0; i < 5; i++) {
+                let playerSelection = prompt("Rock, paper, or scissors?");
+
+                winner = playRound(playerSelection, computerPlay());
+
+                if (winner == 'Player') {
+                    playerScore++;
+                } else if (winner == 'Computer') {
+                    computerScore++;
+                }
+                
+                if (playerScore == 3) {
+                    console.log(`You won! Final scores: Player ${playerScore}, Computer ${computerScore}`);
+                    break;
+                } else if (computerScore == 3) {
+                    console.log(`You lost! Final scores: Player ${playerScore}, Computer ${computerScore}`);
+                    break;
+                } else {
+                    console.log(`Current score: Player ${playerScore}, Computer ${computerScore}`);
+                }
+                
+            }
           }
       </script>
     
