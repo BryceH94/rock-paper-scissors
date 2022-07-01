@@ -7,9 +7,14 @@
     <title>Rock Paper Scissors</title>
   </head>
   <body>
-      <h1>Rock Paper Scissors Time!</h1>
-      <h2>First to five. Fight in the console!</h2>
-      <h3>Type "game()" to get started.</h3>
+      <button class="rock">Rock</button>
+      <button class="paper">Paper</button>
+      <button class="scissors">Scissors</button>
+      <div class="computer"></div>
+      <div class="results">Test</div>
+      <div class="status">Status</div>
+      <div class="container"></div>
+
       <script>
           function computerPlay() {
               let computerChoice = 'Rock';
@@ -24,11 +29,15 @@
               return computerChoice;
           }
 
-          function playRound(playerSelection, computerSelection) {
+          function playRound(e) {
             let outcome = `Nobody wins! Play the game right next time`;
             let winner = 'Error';
-            playerSelection = playerSelection.charAt(0).toUpperCase() + playerSelection.slice(1).toLowerCase();
-            computerSelection = computerSelection.charAt(0).toUpperCase() + computerSelection.slice(1).toLowerCase();
+            const playerSelection = e.srcElement.textContent;
+            const computerSelection = computerPlay();
+            const roundResults = document.querySelector('.results');
+            const computerChoice = document.querySelector('.computer');
+
+            if (playerScore >= winningScore || computerScore >= winningScore) return; //Do nothing if game is over.
 
             if (playerSelection == 'Rock') {
                 //Ordered in tie, lose, win
@@ -77,40 +86,65 @@
                         break;
                 }
             }
+            
+            roundResults.textContent = outcome;
+            computerChoice.textContent = `Computer chose: ${computerSelection}`;
+            updateGame(winner);
 
-            console.log(outcome);
             return winner;
           }
 
-          function game() {
-            let playerScore = 0;
-            let computerScore = 0;
+          function updateGame(winner) {
+            const gameStatus = document.querySelector('.status');
 
-            for (let i = 0; i < 5; i++) {
-                let playerSelection = prompt("Rock, paper, or scissors?");
-
-                winner = playRound(playerSelection, computerPlay());
-
-                if (winner == 'Player') {
-                    playerScore++;
-                } else if (winner == 'Computer') {
-                    computerScore++;
-                } else {
-                    i--; //First to five, ties don't count
-                }
-                
-                if (playerScore == 3) {
-                    console.log(`You won! Final scores: Player ${playerScore}, Computer ${computerScore}`);
-                    break;
-                } else if (computerScore == 3) {
-                    console.log(`You lost! Final scores: Player ${playerScore}, Computer ${computerScore}`);
-                    break;
-                } else {
-                    console.log(`Current score: Player ${playerScore}, Computer ${computerScore}`);
-                }
-                
+            if (winner == 'Player') {
+                playerScore++;
+            } else if (winner == 'Computer') {
+                computerScore++;
+            }
+            
+            if (playerScore == winningScore) {
+                gameStatus.textContent = (`You won! Final scores: Player ${playerScore}, Computer ${computerScore}`);
+                addRestartButton();
+            } else if (computerScore == winningScore) {
+                gameStatus.textContent = (`You lost! Final scores: Player ${playerScore}, Computer ${computerScore}`);
+                addRestartButton();
+            } else {
+                gameStatus.textContent = (`Current score: Player ${playerScore}, Computer ${computerScore}`);
             }
           }
+
+          function startGame() {
+            const roundResults = document.querySelector('.results');
+            const gameStatus = document.querySelector('.status');
+            const restartButton = document.querySelector('.restart');
+
+            if (restartButton) restartButton.remove();
+            playerScore = 0;
+            computerScore = 0;
+            
+            roundResults.textContent = 'A new game begins!';
+            gameStatus.textContent = 'First to five!';
+          }
+
+          function addRestartButton() {
+            const restartButton = document.createElement('button');
+            const buttonContainer = document.querySelector('.container');
+            restartButton.classList.add('restart');
+            restartButton.textContent = "New Game?";
+            restartButton.addEventListener('click', startGame);
+
+            buttonContainer.appendChild(restartButton);
+          }
+
+          let playerScore = 0;
+          let computerScore = 0;
+          const winningScore = 3;
+
+          const buttons = document.querySelectorAll('button');
+          buttons.forEach(button => button.addEventListener('click', playRound));
+
+          window.onload = startGame;
       </script>
     
   </body>
