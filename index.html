@@ -124,7 +124,7 @@
             computerScore = 0;
             
             roundResults.textContent = 'A new game begins!';
-            gameStatus.textContent = 'First to five!';
+            gameStatus.textContent = `First to ${winningScore}!`;
           }
 
           function addRestartButton() {
@@ -139,7 +139,7 @@
 
           let playerScore = 0;
           let computerScore = 0;
-          const winningScore = 3;
+          const winningScore = 5;
 
           const buttons = document.querySelectorAll('button');
           buttons.forEach(button => button.addEventListener('click', playRound));
